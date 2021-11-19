@@ -29,4 +29,4 @@ jobs:
         SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
     - run: npm ci
     - run: npm i -g serverless
-    - run: serverless deploy
+    - run: export SERVERLESS_ACCESS_KEY=${{ secrets.SERVERLESS_ACCESS_KEY }} && serverless deploy
