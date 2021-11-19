@@ -9,24 +9,17 @@ on:
       - main
 
 jobs:
-  build:
-    name: deploy
+  deploy:
+    name: Deployment
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install VPC Plugin and Deploy
+      uses: serverless/github-action@v1.53.0
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        args: -c "serverless deploy --verbose"
+        entrypoint: /bin/bash
       env:
         SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-    - run: npm ci
-    - run: npm i -g serverless
-    - run: export SERVERLESS_ACCESS_KEY=${{ secrets.SERVERLESS_ACCESS_KEY }} && serverless deploy
+        SLS_DEBUG: 1
