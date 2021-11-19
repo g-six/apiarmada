@@ -1,9 +1,11 @@
 import type { AWS } from '@serverless/typescript';
 
 import hello from '@functions/hello';
-
+type Region = 'ap-southeast-1' | 'us-east-2'
 const serverlessConfiguration: AWS = {
-  service: 'kastle',
+  org: 'xsquad',
+  app: 'rjwheels',
+  service: 'auth',
   frameworkVersion: '2',
   plugins: [
     'serverless-esbuild',
@@ -12,6 +14,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
+    region: process.env.AWS_REGION as Region,
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,

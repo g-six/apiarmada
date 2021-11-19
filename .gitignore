@@ -12,5 +12,3 @@ jspm_packages
 # Webpack directories
 .webpack
 
-# Remove this once development nears stable
-package-lock.json
